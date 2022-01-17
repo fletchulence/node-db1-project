@@ -1,6 +1,10 @@
 const router = require('express').Router();
 
-const Account = require('./accounts-model')
+const Account = require('./accounts-model');
+
+const {
+  checkAccountId
+} = require('./accounts-middleware')
 
 router.get('/', async (req, res, next) => {
   // SELECT * FROM Accounts;
@@ -12,7 +16,7 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', checkAccountId, async (req, res, next) => {
   // DO YOUR MAGIC
   try{
     res.json( await Account.getById(req.params.id) );

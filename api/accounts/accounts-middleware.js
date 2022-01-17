@@ -1,3 +1,7 @@
+const Account = require('./accounts-model')
+
+
+
 exports.checkAccountPayload = (req, res, next) => {
   // DO YOUR MAGIC
   // Note: you can either write "manual" validation logic
@@ -8,6 +12,13 @@ exports.checkAccountNameUnique = (req, res, next) => {
   // DO YOUR MAGIC
 }
 
-exports.checkAccountId = (req, res, next) => {
+exports.checkAccountId = async (req, res, next) => {
   // DO YOUR MAGIC
-}
+  const [dbId] = await Account.getById( req.params.id )
+  if( !dbId ){
+    // console.log(dbId)
+    next({ status: 404, message: 'id not found' })
+  } else {
+    next()
+  }
+};
