@@ -1,9 +1,15 @@
-const router = require('express').Router()
+const router = require('express').Router();
 
-router.get('/', (req, res, next) => {
+const Account = require('./accounts-model')
+
+router.get('/', async (req, res, next) => {
   // SELECT * FROM Accounts;
   // DO YOUR MAGIC
-  return res.json('get wired')
+  try{
+    res.json( await Account.getAll())
+  } catch(err){
+    next(err)
+  }
 })
 
 router.get('/:id', (req, res, next) => {
