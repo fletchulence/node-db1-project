@@ -10,11 +10,28 @@ const getById = id => {
   // DO YOUR MAGIC
   return db('accounts')
     .select('*')
-    .where('id', '=', id )
+    // .where('id', '=', id )
+    .where({ id })
+    // .first()
+}
+
+const getByName = name =>{
+  return db('accounts')
+    .select('*')
+    .where({ name })
+    // .first()
 }
 
 const create = account => {
   // DO YOUR MAGIC
+  return db('accounts')
+    .insert({ 
+      name: account.name,
+      budget: account.budget 
+    })
+    // .select('*').from('accounts') // unless i want to limit the items that come back
+    // .where({ id: account.id })
+    // .first()
 }
 
 const updateById = (id, account) => {
@@ -31,4 +48,5 @@ module.exports = {
   create,
   updateById,
   deleteById,
+  getByName
 }
