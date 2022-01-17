@@ -12,8 +12,13 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.get('/:id', (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
   // DO YOUR MAGIC
+  try{
+    res.json( await Account.getById(req.params.id) );
+  } catch(err){
+    next(err)
+  }
 })
 
 router.post('/', (req, res, next) => {
