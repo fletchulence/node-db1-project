@@ -16,10 +16,10 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.get('/:id', checkAccountId, async (req, res, next) => {
+router.get('/:id', checkAccountId, (req, res, next) => {
   // DO YOUR MAGIC
   try{
-    res.json( await Account.getById(req.params.id) );
+    res.json( req.response ); // gives me the ability to get the data quicker!
   } catch(err){
     next(err)
   }
@@ -29,7 +29,7 @@ router.post('/', (req, res, next) => {
   // DO YOUR MAGIC
 })
 
-router.put('/:id', (req, res, next) => {
+router.put('/:id', checkAccountId, (req, res, next) => {
   // DO YOUR MAGIC
 });
 

@@ -19,6 +19,8 @@ exports.checkAccountId = async (req, res, next) => {
     // console.log(dbId)
     next({ status: 404, message: 'id not found' })
   } else {
+    req.response = dbId;
+    // dont think this is actually going to work for the later items
     next()
   }
 };
