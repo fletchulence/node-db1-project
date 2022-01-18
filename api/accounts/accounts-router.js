@@ -32,7 +32,6 @@ checkAccountPayload,
 checkAccountNameUnique, 
 async (req, res, next) => {
   // DO YOUR MAGIC
-  // const {name, budget} = req.body
   const [newAcctId] = await Account.create({ name: req.name, budget: req.budget })
   try{
     const newAcct = await Account.getById(newAcctId) 
