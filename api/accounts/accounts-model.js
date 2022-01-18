@@ -10,7 +10,6 @@ const getById = id => {
   // DO YOUR MAGIC
   return db('accounts')
     .select('accounts.name', 'accounts.budget')
-    // .where('id', id )
     .where({ id })
     .first()
 }
@@ -25,7 +24,6 @@ const getByName = name =>{
 const create = account => {
   // DO YOUR MAGIC
   return db('accounts as a')
-    // .select('a.name', 'a.budget')
     .insert( account )
 }
 
@@ -34,8 +32,7 @@ const updateById = (id, account) => {
   return db('accounts')
     .where({ id })
     .first()
-    .update( account /* { name: account.name, budget: account.budget } */ )
-    // .select('accounts.name', 'accounts.budget')
+    .update( account )
 }
 
 const deleteById = id => {

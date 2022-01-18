@@ -33,11 +33,8 @@ exports.checkAccountNameUnique = async (req, res, next) => {
   const dbName = await Account.getByName( req.name )
   try{
     if ( dbName ){
-      // console.log(dbName)
       next({ status: 400, message: 'sorry this name is taken'})
     } else {
-      // console.log(dbName)
-      // req.dbName = dbName
       next()
     }
   } catch(err){
