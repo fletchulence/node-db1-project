@@ -4,7 +4,8 @@ const Account = require('./accounts-model');
 
 const {
   checkAccountId,
-  checkAccountNameUnique
+  checkAccountNameUnique,
+  checkAccountPayload
 } = require('./accounts-middleware')
 
 router.get('/', async (req, res, next) => {
@@ -26,12 +27,13 @@ router.get('/:id', checkAccountId, (req, res, next) => {
   }
 })
 
-router.post('/', checkAccountNameUnique, async (req, res, next) => {
+router.post('/', checkAccountPayload, checkAccountNameUnique, async (req, res, next) => {
   // DO YOUR MAGIC
-  const {name, budget} = req.body
+  // const {name, budget} = req.body
+  const [newAcctId] = await Account.create({ name: req.name, budget: req.budget })
   try{
-    const newAcct = await Account.create({name, budget})
-    res.json( await Account.getById(newAcct) )
+    const [newAcct] = await Account.getById(newAcctId) 
+    res.status(201).json( newAcct )
   } catch(err){
     next(err)
   }

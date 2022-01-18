@@ -9,9 +9,9 @@ const getAll = () => {
 const getById = id => {
   // DO YOUR MAGIC
   return db('accounts')
-    .select('*')
-    // .where('id', '=', id )
-    .where({ id })
+    .select('accounts.name', 'accounts.budget')
+    .where('id', id )
+    // .where({ id })
     // .first()
 }
 
@@ -24,11 +24,14 @@ const getByName = name =>{
 
 const create = account => {
   // DO YOUR MAGIC
-  return db('accounts')
-    .insert({ 
-      name: account.name,
-      budget: account.budget 
-    })
+  return db('accounts as a')
+    // .select('a.name', 'a.budget')
+    .insert( account
+      // { 
+      // name: account.name,
+      // budget: account.budget 
+    // }
+    )
     // .select('*').from('accounts') // unless i want to limit the items that come back
     // .where({ id: account.id })
     // .first()
