@@ -27,27 +27,32 @@ router.get('/:id', checkAccountId, (req, res, next) => {
   }
 })
 
-router.post('/', checkAccountPayload, checkAccountNameUnique, async (req, res, next) => {
+router.post('/', 
+checkAccountPayload, 
+checkAccountNameUnique, 
+async (req, res, next) => {
   // DO YOUR MAGIC
   // const {name, budget} = req.body
   const [newAcctId] = await Account.create({ name: req.name, budget: req.budget })
   try{
-    const [newAcct] = await Account.getById(newAcctId) 
+    const newAcct = await Account.getById(newAcctId) 
     res.status(201).json( newAcct )
   } catch(err){
     next(err)
   }
 })
 
-router.put('/:id', checkAccountPayload, checkAccountId, checkAccountNameUnique, async (req, res, next) => {
+router.put('/:id', 
+checkAccountPayload, 
+checkAccountId,
+checkAccountNameUnique, 
+async (req, res, next) => {
   // DO YOUR MAGIC
   const {id} = req.params
-  // const {name, budget} = req.body;
   const updates = {name: req.name, budget: req.budget}
   try{
-     await Account.updateById(id, updates)
-     const [updateAcct] = await Account.getById(req.params.id)
-    res.status(200).json( updateAcct )
+    await Account.updateById(id, updates)
+    res.status(200).json({ budget: req.budget, name: req.name  })
   } catch(err){
     next(err)
   }

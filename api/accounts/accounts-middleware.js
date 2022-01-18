@@ -6,7 +6,7 @@ exports.checkAccountPayload = (req, res, next) => {
   // Note: you can either write "manual" validation logic
   // or use the Yup library (not currently installed)
   try{
-    let budget = parseInt(req.body.budget)
+    let budget = parseFloat(req.body.budget)
     if ( !name || req.body.budget === undefined ){
         return next({ status: 400, message: 'name and budget are required'})
     } else if ( (name.trim()).length < 3 || (name.trim()).length > 100){
@@ -30,12 +30,14 @@ exports.checkAccountNameUnique = async (req, res, next) => {
   // DO YOUR MAGIC
   // const { name } = req.body
   // const {id} = req.params
-  const  [dbName] = await Account.getByName( req.name )
+  const dbName = await Account.getByName( req.name )
   try{
     if ( dbName ){
       // console.log(dbName)
       next({ status: 400, message: 'sorry this name is taken'})
     } else {
+      // console.log(dbName)
+      // req.dbName = dbName
       next()
     }
   } catch(err){
@@ -45,7 +47,7 @@ exports.checkAccountNameUnique = async (req, res, next) => {
 
 exports.checkAccountId = async (req, res, next) => {
   // DO YOUR MAGIC
-  const [dbId] = await Account.getById( req.params.id )
+  const dbId = await Account.getById( req.params.id )
   if( !dbId ){
     next({ status: 404, message: 'account not found' })
   } else {

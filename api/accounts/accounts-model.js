@@ -10,16 +10,16 @@ const getById = id => {
   // DO YOUR MAGIC
   return db('accounts')
     .select('accounts.name', 'accounts.budget')
-    .where('id', id )
-    // .where({ id })
-    // .first()
+    // .where('id', id )
+    .where({ id })
+    .first()
 }
 
 const getByName = name =>{
   return db('accounts')
     .select('*')
     .where({ name })
-    // .first()
+    .first()
 }
 
 const create = account => {
@@ -33,9 +33,9 @@ const updateById = (id, account) => {
   // DO YOUR MAGIC
   return db('accounts')
     .where({ id })
+    .first()
     .update( account /* { name: account.name, budget: account.budget } */ )
     // .select('accounts.name', 'accounts.budget')
-    // .first()
 }
 
 const deleteById = id => {
