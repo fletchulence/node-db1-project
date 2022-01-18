@@ -26,19 +26,16 @@ const create = account => {
   // DO YOUR MAGIC
   return db('accounts as a')
     // .select('a.name', 'a.budget')
-    .insert( account
-      // { 
-      // name: account.name,
-      // budget: account.budget 
-    // }
-    )
-    // .select('*').from('accounts') // unless i want to limit the items that come back
-    // .where({ id: account.id })
-    // .first()
+    .insert( account )
 }
 
 const updateById = (id, account) => {
   // DO YOUR MAGIC
+  return db('accounts')
+    .update({ name: account.name, budget: account.budget })
+    .select('accounts.name', 'accounts.budget')
+    .where({ id })
+    // .first()
 }
 
 const deleteById = id => {
