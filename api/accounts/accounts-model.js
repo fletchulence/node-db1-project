@@ -32,9 +32,9 @@ const create = account => {
 const updateById = (id, account) => {
   // DO YOUR MAGIC
   return db('accounts')
-    .update({ name: account.name, budget: account.budget })
-    .select('accounts.name', 'accounts.budget')
     .where({ id })
+    .update( account /* { name: account.name, budget: account.budget } */ )
+    // .select('accounts.name', 'accounts.budget')
     // .first()
 }
 

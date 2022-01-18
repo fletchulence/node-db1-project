@@ -45,8 +45,9 @@ router.put('/:id', checkAccountPayload, checkAccountId, checkAccountNameUnique, 
   // const {name, budget} = req.body;
   const updates = {name: req.name, budget: req.budget}
   try{
-    await Account.updateById(id, updates)
-    res.status(200).json( updates )
+     await Account.updateById(id, updates)
+     const [updateAcct] = await Account.getById(req.params.id)
+    res.status(200).json( updateAcct )
   } catch(err){
     next(err)
   }
